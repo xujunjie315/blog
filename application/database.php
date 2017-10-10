@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'           => 'mysql',
     // 服务器地址
-    'hostname'       => '192.168.1.106',
+    'hostname'       => '59.110.152.222',
     // 数据库名
-    'database'       => 'state',
+    'database'       => 'blog',
     // 用户名
-    'username'       => 'rms',
+    'username'       => 'root',
     // 密码
-    'password'       => 'bitrms9527',
+    'password'       => 'root',
     // 端口
     'hostport'       => '3306',
     // 连接dsn
