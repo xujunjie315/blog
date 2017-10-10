@@ -70,7 +70,7 @@
               <th>{$vo.id}</th>
               <th>{$vo.name}</th>
               <th>{$vo.intro}</th>
-              <th>{$vo.enabled}</th>
+              <th>{$vo.enabled|str_replace='1','是'|str_replace='0','否'}</th>
               <th><span class="edit" data-id="{$vo.id}">编辑</span></th>
           </tr>
       {/volist}

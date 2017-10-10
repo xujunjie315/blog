@@ -11,10 +11,10 @@ class AccessPermission extends Controller
     public function run(&$params)
     {
         $request = Request::instance();
-        $module = $request->module();
-        $controller = $request->controller();
-        $action = $request->action();
-        $currentRule = [$module, "$module-$controller", "$module-$controller-$action",];
+        $module = strtolower($request->module());
+        $controller = strtolower($request->controller());
+        $action = strtolower($request->action());
+        $currentRule = [$module, "$module-$controller", "$module-$controller-$action"];
         //是否在公共路由中
         $isPub = $this->check($currentRule,1);
         $user = Session::has('user')?Session::get('user'):false;

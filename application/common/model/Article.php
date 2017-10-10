@@ -13,7 +13,7 @@ class Article extends Model
         if(isset($input['condition'])){
             $select = $select->where('a.title|c.name','like',"%{$input['condition']}%");
         }
-        $articleList = $select->order('a.id asc')->where('a.enabled',ENABLED)->field('a.id,a.title,c.name,a.views,FROM_UNIXTIME(a.create_time,"%Y-%m-%d %H:%i:%s")')->paginate(10);
+        $articleList = $select->order('a.id asc')->where('a.enabled',ENABLED)->field('a.id,a.title,c.name,a.views,a.create_time')->paginate(10);
         return $articleList;
     }
 }
