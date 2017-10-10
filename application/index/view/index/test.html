@@ -1,0 +1,19 @@
+{extend name="../application/common/view/index/base.html" /}
+{block name="title"}index{/block}
+{block name="css"}
+<link href="__STATIC__/css/login.css" rel="stylesheet">
+{/block}
+{block name="main"}
+    <div class="container" >
+
+        <form action="/index/index/upload" enctype="multipart/form-data" method="post">
+        <input type="file" name="image" /> <br> 
+        <input type="submit" value="上传" /> 
+        </form> 
+
+    </div>
+
+{/block}
+<!--{block name="footer"}{/block}-->
+
+

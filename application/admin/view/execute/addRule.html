@@ -1,0 +1,71 @@
+{extend name="../application/common/view/admin/base.html" /}
+{block name="title"}list{/block}
+{block name="main"}
+    <div class="container jumbotron">
+      <div class="form-horizontal has-feedback">
+        <div class="form-group ">
+          <label class="control-label col-xs-3">规则名称</label>
+          <div class="col-xs-7">
+            <input type="text" id="name" name="name" class="form-control" placeholder="name">
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true">&nbsp;&nbsp;</span>
+          </div>
+        </div>
+       <div class="form-group ">
+          <label class="control-label col-xs-3">规则介绍</label>
+          <div class="col-xs-7">
+            <textarea class="form-control" id="intro" name="intro" rows="3"></textarea>
+            <!--<input type="text" id="name" name="name" class="form-control" placeholder="name">-->
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true">&nbsp;&nbsp;</span>
+          </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-3 col-xs-7">
+              <div class="checkbox">
+                <label>
+                  <input id="enabled" name="enabled" value="1" type="checkbox"> 是否为公共路由
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-offset-5 col-xs-1">
+              <button id="submit"  type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-xs-1">
+              <button type="reset" onclick="history.back(); " class="btn btn-primary">reset</button>
+            </div>
+        </div>
+      </div>
+    </div>
+{/block}
+{block name="script"}
+ <script type="text/javascript">
+        $(document).ready(function(){
+            $('#submit').click(function(){
+                var name = $('#name').val();
+                var intro =$('#intro').val();
+                if($("#enabled").is(":checked")){
+                    var enabled = 1;
+                }else{
+                    var enabled = 0;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/execute/j_addrule",
+                    data: {name:name,intro:intro,enabled:enabled},
+                    dataType:'json',
+                    success: function(result){
+                        showSuccess(result.msg);
+                        setTimeout("window.location.href='/admin/query/rulelist'",1000);
+                    },
+                    error:function(result){
+                        showError(JSON.parse(result.responseText).msg);
+                    }
+                });
+            });
+        });
+        
+ </script>
+{/block}
+
+

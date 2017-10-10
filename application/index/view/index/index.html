@@ -1,0 +1,73 @@
+{extend name="../application/common/view/index/base.html" /}
+{block name="title"}index{/block}
+{block name="main"}
+    <div class="container">
+        <div class="col-xs-3">
+             <div class="row">
+                   <div class="col-xs-11">
+                        <div class="list-group">
+                            {if condition="isset($catecur)"}
+                               <a href="#" class="list-group-item active disabled">{$catecur['name']}</a>
+                              {volist name="articleList" id="articleList"}
+                                   <a href="/index/index/index/cate_id/{$catecur['id']}/id/{$articleList.id}" class="list-group-item">{$articleList['title']}</a>
+                              {/volist}
+                          {else /}
+                               <a href="#" class="list-group-item active disabled">热门文章</a>
+                               {volist name="hotArticle" id="hot"}
+                               <a href="/index/index/index/id/{$hot.id}" class="list-group-item">{$hot['title']}</a>
+                               {/volist}
+                           {/if}
+                        </div>
+                   </div>
+                   <div class="col-xs-1"></div>
+              </div>
+         </div>
+            
+        <div class="jumbotron col-xs-9">
+               {if condition="isset($article)"}
+                   <h1 class="text-center">{$article['title']}</h1>
+                   <div class="row">
+                     <div class="col-xs-3"></div>
+                     <div class="col-xs-6">
+                       <ul class="nav nav-pills" role="tablist">
+                         <li role="presentation"><a href="#"> 浏览<span class="badge">{$article['views']}</span></a></li>
+                         <li role="presentation"><a href="#">评论 <span class="badge">42</span></a></li>
+                         <li role="presentation"><a href="#">{$article['create_time']}</a></li>
+                       </ul>
+                     </div>
+                     <div class="col-xs-3"></div>
+                   </div>
+                   <div id="content">
+                       {$article['content']}
+                   </div>
+               {else /}
+                   <h1 class="text-center">{$hotArticle[0]['title']}</h1>
+                   <div class="row">
+                     <div class="col-xs-3"></div>
+                     <div class="col-xs-6">
+                       <ul class="nav nav-pills" role="tablist">
+                         <li role="presentation"><a href="#"> 浏览<span class="badge">{$hotArticle[0]['views']}</span></a></li>
+                         <li role="presentation"><a href="#">评论 <span class="badge">42</span></a></li>
+                         <li role="presentation"><a href="#">{$hotArticle[0]['create_time']}</a></li>
+                       </ul>
+                     </div>
+                     <div class="col-xs-3"></div>
+                   </div>
+                   <div id="content">
+                       {$article['content']}
+                   </div>
+               {/if}
+           </div>
+    </div>
+    
+
+{/block}
+<!--{block name="footer"}{/block}-->
+    
+  
+
+
+
+
+
+

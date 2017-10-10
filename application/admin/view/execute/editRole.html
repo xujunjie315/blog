@@ -1,0 +1,68 @@
+{extend name="../application/common/view/admin/base.html" /}
+{block name="title"}list{/block}
+{block name="main"}
+    <div class="container jumbotron">
+      <div class="form-horizontal has-feedback">
+        <div class="form-group ">
+          <label class="control-label col-xs-3">角色名称</label>
+          <div class="col-xs-7">
+            <input type="text" id="name" name="name" data-id="{$roleRule[0]['id']}" class="form-control" value="{$roleRule[0]['name']}" placeholder="name">
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true">&nbsp;&nbsp;</span>
+          </div>
+        </div>
+          <div class="form-group ">
+              <label class="control-label col-xs-3">角色规则</label>
+              <div class="col-xs-7">
+                  {volist name="ruleList" id="vo"}
+                  <div class="checkbox">
+                      <label>
+                          <?php $rule=array_column($roleRule,'rule_id'); $ruleId=implode(',',$rule);?>
+                          <input type="checkbox" name="rule_id" {in name="vo.id" value="$ruleId"}checked="checked"{/in} value="{$vo.id}">
+                          {$vo.name}
+                      </label>
+                  </div>
+                  {/volist}
+              </div>
+          </div>
+
+        <div class="row">
+            <div class="col-xs-offset-5 col-xs-1">
+              <button id="submit"  type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-xs-1">
+              <button type="reset" onclick="history.back(); " class="btn btn-primary">reset</button>
+            </div>
+        </div>
+      </div>
+    </div>
+{/block}
+{block name="script"}
+ <script type="text/javascript">
+        $(document).ready(function(){
+            $('#submit').click(function(){
+                var id = $('#name').attr('data-id');
+                var name = $('#name').val();
+                var rule_id = new Array();
+                $('input[name="rule_id"]:checked').each(function(){
+                    rule_id.push($(this).val());
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/execute/j_editrole",
+                    data: {id:id,name:name,rule_id:rule_id},
+                    dataType:'json',
+                    success: function(result){
+                        showSuccess(result.msg);
+                        setTimeout("window.location.href='/admin/query/rolelist'",1000);
+                    },
+                    error:function(result){
+                        showError(JSON.parse(result.responseText).msg);
+                    }
+                });
+            });
+        });
+        
+ </script>
+{/block}
+
+
